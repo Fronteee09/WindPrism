@@ -7,7 +7,6 @@
     <style>
         :root {
             --bg-dark-aero: #0b1f15;
-            --bg-card: rgba(14, 43, 30, 0.7);
             --aero-green: #10b981;
             --aero-green-hover: #059669;
             --aero-green-glow: rgba(16, 185, 129, 0.4);
@@ -26,48 +25,38 @@
         body {
             background-color: var(--bg-dark-aero);
             color: var(--text-light);
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-start;
-            padding: 40px 20px;
+            padding: 20px;
             background-image: 
                 radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 80% 80%, rgba(5, 150, 105, 0.08) 0%, transparent 40%);
         }
 
-        header {
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 60px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span {
-            color: var(--aero-green);
-            text-shadow: 0 0 10px var(--aero-green-glow);
-        }
-
         .main-container {
             width: 100%;
-            max-width: 700px;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 24px;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .logo span {
+            color: var(--aero-green);
+            text-shadow: 0 0 15px var(--aero-green-glow);
         }
 
         .search-box-wrapper {
@@ -77,15 +66,15 @@
 
         .search-input {
             width: 100%;
-            padding: 18px 24px 18px 54px;
-            font-size: 18px;
+            padding: 16px 24px 16px 52px;
+            font-size: 16px;
             color: var(--text-light);
             background: rgba(11, 31, 21, 0.8);
             border: 1px solid var(--border-aero);
-            border-radius: 16px;
+            border-radius: 24px;
             outline: none;
             backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
 
@@ -104,13 +93,18 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--aero-green);
-            font-size: 20px;
+            font-size: 18px;
             pointer-events: none;
         }
 
+        .actions-row {
+            display: flex;
+            gap: 12px;
+        }
+
         .btn-aero {
-            padding: 12px 24px;
-            font-size: 16px;
+            padding: 10px 22px;
+            font-size: 14px;
             font-weight: 600;
             color: #ffffff;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -131,135 +125,40 @@
         .btn-aero:active {
             transform: translateY(1px);
         }
-
-        .actions-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .pages-section {
-            width: 100%;
-            margin-top: 40px;
-        }
-
-        .pages-section h2 {
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .pages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-            width: 100%;
-        }
-
-        .page-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-aero);
-            border-radius: 12px;
-            padding: 16px;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .page-card:hover {
-            border-color: var(--aero-green);
-            box-shadow: 0 0 15px var(--aero-green-glow);
-            transform: translateY(-2px);
-        }
-
-        .page-card h3 {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 6px;
-        }
-
-        .page-card p {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">Wind<span>Prism</span></div>
-        <button class="btn-aero" onclick="aggiungiPagina()">+ Aggiungi Pagina</button>
-    </header>
-
     <div class="main-container">
+        <div class="logo">Wind<span>Prism</span></div>
+        
         <div class="search-box-wrapper">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="Cerca tra pagine e repository GitHub..." oninput="filtraPagine()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Cerca o digita un URL..." onkeydown="gestisciInvio(event)">
         </div>
 
         <div class="actions-row">
-            <button class="btn-aero" onclick="cercaTutto()">Cerca</button>
-        </div>
-
-        <div class="pages-section">
-            <h2>Pagine e Repository Aggiunti</h2>
-            <div class="pages-grid" id="pagesGrid">
-                <!-- Verranno popolati da JavaScript -->
-            </div>
+            <button class="btn-aero" onclick="cercaTutto()">Cerca su GitHub</button>
         </div>
     </div>
 
     <script>
-        let pagine = [
-            { titolo: "windprism/core", desc: "Repository principale del browser", url: "https://github.com/windprism/core" },
-            { titolo: "windprism/actions-ui", desc: "Dashboard GitHub Actions", url: "https://github.com/windprism/actions-ui" },
-            { titolo: "GitHub Trending", desc: "Esplora i repository popolari", url: "https://github.com/trending" }
-        ];
-
-        function filtraPagine() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const grid = document.getElementById('pagesGrid');
-            
-            const filtrate = pagine.filter(p => 
-                p.titolo.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query)
-            );
-
-            grid.innerHTML = filtrate.map(p => `
-                <div class="page-card" onclick="apriPagina('${p.url}')">
-                    <h3>${p.titolo}</h3>
-                    <p>${p.desc}</p>
-                </div>
-            `).join('');
-        }
-
         function cercaTutto() {
-            const query = document.getElementById('searchInput').value;
+            const query = document.getElementById('searchInput').value.trim();
             if(query) {
-                alert("Ricerca globale avviata per: " + query);
+                // Esempio: reindirizza direttamente alla ricerca di GitHub o esegue un'azione
+                const url = `https://github.com/search?q=${encodeURIComponent(query)}`;
+                window.open(url, '_blank');
             } else {
                 alert("Inserisci un termine di ricerca.");
             }
         }
 
-        function aggiungiPagina() {
-            const titolo = prompt("Inserisci il nome della pagina o repository (es. utente/repo):");
-            if(titolo) {
-                const desc = prompt("Inserisci una breve descrizione:");
-                const url = prompt("Inserisci l'URL (es. https://github.com/...):", "https://github.com/");
-                
-                pagine.push({ titolo, desc: desc || "Nessuna descrizione", url: url || "#" });
-                filtraPagine();
+        function gestisciInvio(event) {
+            if (event.key === 'Enter') {
+                cercaTutto();
             }
         }
-
-        function apriPagina(url) {
-            window.open(url, '_blank');
-        }
-
-        // Inizializza la griglia all'avvio
-        filtraPagine();
     </script>
 </body>
 </html>
